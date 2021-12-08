@@ -10,7 +10,7 @@ import { RichText } from 'prismic-dom';
 type Post = {
   slug: string;
   title: string;
-  exerpt: string;
+  excerpt: string;
   updatedAt: string;
 }
 
@@ -33,7 +33,7 @@ export default function Posts({ posts }: PostsProps) {
               <a>
                 <time>{post.updatedAt}</time>
                 <strong>{post.title}</strong>
-                <p>{post.exerpt}</p>
+                <p>{post.excerpt}</p>
               </a>
             </Link>
           ))}
@@ -56,7 +56,7 @@ export const getStaticProps: GetStaticProps = async () => {
     return {
       slug: post.uid,
       title: RichText.asText(post.data.title),
-      exerpt: post.data.content.find(content => content.type === 'paragraph')?.text ?? '',
+      excerpt: post.data.content.find(content => content.type === 'paragraph')?.text ?? '',
       updatedAt: new Date(post.last_publication_date).toLocaleDateString('pt-BR', {
         day: '2-digit',
         month: 'long',
